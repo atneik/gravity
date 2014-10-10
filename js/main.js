@@ -115,7 +115,14 @@ GRAVITY.initInteractivity  = function(){
     }, 0);
   }
 
+  //take to the background image when video is ended
   backVideo.addEventListener('ended', toggleToBackImage, false);
+  
+  //video status. show a progress spinner when loading.
+  document.getElementById("status").innerHTML = "<i class='fa fa-spinner fa-spin fa-3x'></i>";
+  backVideo.addEventListener('loadeddata', function(){
+    document.getElementById("status").innerHTML = "";
+  }, false);
 
   skipButton.innerHTML = "Skip &nbsp; <i class='fa fa-step-forward'></i>";
   skipButton.addEventListener('click',function(){
