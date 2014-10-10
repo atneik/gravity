@@ -42,10 +42,7 @@ GRAVITY.AJAX_JSON_Req = function( url ){
             var videoPlayer = document.getElementById( "videoPlayer" );
             populateLinksToPlayerID( videoLinks, videoPlayer, "video" );
 
-            //Add audio sources from the json data
-            var audioLinks = contentData[0].audioURL[0];
-            var audioPlayer = document.getElementById( "audioPlayer" );
-            populateLinksToPlayerID( audioLinks, audioPlayer, "audio");
+            
             
             //Add copy from the json data
             document.getElementById( "copyText" ).innerHTML = contentData[0].copyText;
@@ -55,7 +52,7 @@ GRAVITY.AJAX_JSON_Req = function( url ){
             document.getElementById( "backImage" ).setAttribute('style', backImageURLAttr);
             
             //for defining button and other funtionality 
-            GRAVITY.videoInit();
+            GRAVITY.videoInit(contentData);
           }
         }
         AJAX_req.send();
@@ -67,7 +64,7 @@ GRAVITY.AJAX_JSON_Req = function( url ){
 *
 **************************/
 
-GRAVITY.videoInit  = function(){
+GRAVITY.videoInit  = function(contentData){
   //
   // Hide the video controls after timeOut. Show upon mouse movement. 
   //
@@ -103,7 +100,8 @@ GRAVITY.videoInit  = function(){
     videoControls.parentNode.removeChild(videoControls);
     backVideo.parentNode.removeChild(backVideo);
     backImageParent.appendChild(backImage);
-    GRAVITY.audioInit();
+    
+    GRAVITY.audioInit(contentData);
 
     document.getElementById("status").innerHTML = "";
     setTimeout(function(){
@@ -140,10 +138,15 @@ GRAVITY.videoInit  = function(){
 *
 **************************/
 
-GRAVITY.audioInit  = function(){
+GRAVITY.audioInit  = function(contentData){
   var audioPlayer = document.getElementById("audioPlayer");
   var audioPlayStopButton = document.getElementById("audioPlayStopButton");
 
+  //Add audio sources from the json data
+            var audioLinks = contentData[0].audioURL[0];
+            populateLinksToPlayerID( audioLinks, audioPlayer, "audio");
+
+  console.log(audioPlayer);
   function audioPlay(){
     audioPlayer.play(); 
   }
@@ -173,13 +176,7 @@ GRAVITY.audioInit  = function(){
 * Fullscreen
 *
 **************************/
-
-  //Toggle full screen when Space is pressed
-  document.addEventListener("keydown", function(e) {
-    if (e.keyCode == 32) {
-      toggleFullScreen();
-    }
-  }, false);
+GRAVITY.fullscreen  = function(){
 
   function enterFullScreen(){
     if (document.documentElement.requestFullscreen) {
@@ -209,8 +206,16 @@ GRAVITY.audioInit  = function(){
     if (!document.fullscreenElement &&    // alternative standard method
         !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
       enterFullScreen();
-  } else {
-    exitFullScreenMy();
+    } else {
+      exitFullScreenMy();
+    }
+
+    //Toggle full screen when Space is pressed
+    document.addEventListener("keydown", function(e) {
+      if (e.keyCode == 32) {
+        toggleFullScreen();
+      }
+    }, false);
   }
 }
 
@@ -221,4 +226,5 @@ GRAVITY.audioInit  = function(){
 
 document.addEventListener("DOMContentLoaded", function(){
   GRAVITY.AJAX_JSON_Req(jsonDataURL);
+  GRAVITY.fullscreen();
 }, false);
