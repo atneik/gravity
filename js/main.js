@@ -99,6 +99,7 @@ GRAVITY.videoInit  = function(contentData){
   function toggleToBackImage(){
     videoControls.parentNode.removeChild(videoControls);
     backVideo.parentNode.removeChild(backVideo);
+    backVideo.src = "";
     backImageParent.appendChild(backImage);
     
     GRAVITY.audioInit(contentData);
@@ -146,7 +147,7 @@ GRAVITY.audioInit  = function(contentData){
             var audioLinks = contentData[0].audioURL[0];
             populateLinksToPlayerID( audioLinks, audioPlayer, "audio");
 
-  console.log(audioPlayer);
+  //console.log(audioPlayer);
   function audioPlay(){
     audioPlayer.play(); 
   }
@@ -209,6 +210,7 @@ GRAVITY.fullscreen  = function(){
     } else {
       exitFullScreenMy();
     }
+  }
 
     //Toggle full screen when Space is pressed
     document.addEventListener("keydown", function(e) {
@@ -216,7 +218,6 @@ GRAVITY.fullscreen  = function(){
         toggleFullScreen();
       }
     }, false);
-  }
 }
 
 /*************************
