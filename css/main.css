@@ -39,6 +39,9 @@
     color: #FFF;
     background: black;
     font: normal 100%/1.4 sans-serif;
+    font-size: 16px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 200;
     width: 100%;
     height: 100%;
     overflow-y: hidden;
@@ -57,7 +60,8 @@
     text-align: center;
     padding: 5px;
     font-size: 0.8em;
-    text-shadow: 0px 0px 30px rgba(0, 0, 0, 1);
+    font-weight: 400;
+    text-shadow: 0px 0px 30px rgb(0, 0, 0);
   }
 
   /* ------------------------------------------
@@ -93,36 +97,34 @@
 
   #backVideo{
     position: fixed;
-    min-width: 100%;
+    width: 100%;
     height: 100%;
+    z-index: -100;
+    background-color: black;
+    
+  }
+
+  #videoControls {
+    display: "none";    
+  }
+
+  #backVideo video {
+    position: fixed;
+    width: 100%;
     left: 0;
     top: 50%;
-    z-index: -100;
-
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
   }
 
-  #backVideo video {
-    position: relative;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto; 
-    height: auto;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-  }
-
   .content{
     position: relative;
-    max-width: 600px;
+    max-width: 800px;
     width: 50%;
     margin: 0 auto;
     z-index: 100;
-    top: 80%;
+    top: 90%;
     opacity: 0;
 
     -webkit-transition: opacity 8s;
@@ -133,14 +135,16 @@
     -ms-transition-timing-function: ease;
     transition-timing-function: ease;
 
-    -webkit-transform: translateY(-80%);
-    -ms-transform: translateY(-80%);
-    transform: translateY(-80%);
+    -webkit-transform: translateY(-90%);
+    -ms-transform: translateY(-90%);
+    transform: translateY(-90%);
   }
 
   .content p{
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(0, 0, 0, 0.25);
     padding: 10px 20px;
+    line-height: 26px;
+    letter-spacing: 2px;
   }
 
   .bottomButton{
@@ -158,5 +162,7 @@
     color: black;
     background: white;
     transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+    -ms-transition: all .5s ease;
   }
   
